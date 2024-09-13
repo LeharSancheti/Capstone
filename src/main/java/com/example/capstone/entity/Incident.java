@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,24 +15,36 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
+
 
 @Entity
-@Table(name = "Incident1")
+@Table(name = "Sample")
 public class Incident {
 	
 	@Id
 	private String incid;
 	
 	
-	//@JsonFormat(shape=JsonFormat.Shape.STRING,pattern = "dd-mm-yyyy hh:mm a")
+	
+
+    @jakarta.validation.constraints.NotNull
 	private LocalDateTime date;
+    
+    @jakarta.validation.constraints.NotNull
 	private String appid;
+    
+    @jakarta.validation.constraints.NotNull
 	private String appname;
+    
+    @jakarta.validation.constraints.NotNull
 	private Integer priority;
+    
+    @jakarta.validation.constraints.NotNull
 	private String incidentname;
+    
 	private String  description;
+	@jakarta.validation.constraints.NotNull
 	private String status;
 	
 	public String getAppname() {
