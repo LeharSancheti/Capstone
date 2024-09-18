@@ -5,7 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
 public class DateUtils {
-	 private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
+	
+	 public DateUtils() {
+	
+	}
+
+	private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
 	            .parseCaseInsensitive()
 	            .appendOptional(DateTimeFormatter.ofPattern("d-M-yy h:mm a"))
 	            .appendOptional(DateTimeFormatter.ofPattern("dd-M-yy h:mm a"))

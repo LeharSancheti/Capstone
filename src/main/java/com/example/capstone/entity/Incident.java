@@ -1,18 +1,17 @@
 package com.example.capstone.entity;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
+
+
 import java.time.LocalDateTime;
 
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.beans.factory.annotation.Value;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -43,10 +42,35 @@ public class Incident {
     @jakarta.validation.constraints.NotNull
 	private String incidentname;
     
+    @jakarta.validation.constraints.NotNull
 	private String  description;
+	
 	@jakarta.validation.constraints.NotNull
 	private String status;
 	
+	public Incident()
+	{
+		
+	}
+	
+	
+	public Incident(String incid, @jakarta.validation.constraints.NotNull LocalDateTime date,
+			@jakarta.validation.constraints.NotNull String appid,
+			@jakarta.validation.constraints.NotNull String appname,
+			@jakarta.validation.constraints.NotNull Integer priority,
+			@jakarta.validation.constraints.NotNull String incidentname,
+			@jakarta.validation.constraints.NotNull String description,
+			@jakarta.validation.constraints.NotNull String status) {
+		super();
+		this.incid = incid;
+		this.date = date;
+		this.appid = appid;
+		this.appname = appname;
+		this.priority = priority;
+		this.incidentname = incidentname;
+		this.description = description;
+		this.status = status;
+	}
 	public String getAppname() {
 		return appname;
 	}
