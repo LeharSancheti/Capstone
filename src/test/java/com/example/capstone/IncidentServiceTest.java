@@ -17,13 +17,13 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.Arguments;
-import org.mockito.ArgumentMatcher;
-import org.mockito.ArgumentMatchers;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+
+import com.example.capstone.entity.DateUtils;
 import com.example.capstone.entity.Incident;
 import com.example.capstone.repository.IncidentRepo;
 import com.example.capstone.service.IncidentService;
@@ -46,7 +46,7 @@ class IncidentServiceTest {
 	
 	@Test
     void testFindByAppId_ReturnsTrue_WhenListIsEmpty() {
-        String appid = "APP1234";
+        String appid = "APP1122";
         when(incidentRepo.findDistinctByAppid(appid)).thenReturn(Collections.emptyList());
 
         Boolean result = incidentService.findByAppId(appid);
@@ -57,7 +57,7 @@ class IncidentServiceTest {
 	
 	 @Test
 	    void testFindByAppId_ReturnsFalse_WhenListIsNotEmpty() {
-	        String appid = "APP1122";
+	        String appid = "APP1234";
 	        List<String> nonEmptyList = List.of("incident1", "incident2");
 	        when(incidentRepo.findDistinctByAppid(appid)).thenReturn(nonEmptyList);
 
@@ -96,26 +96,26 @@ class IncidentServiceTest {
 	   @Test
 	   void testTotalNumberofPriority() {
 	        String appid = "APP1234";
-	        LocalDateTime startdate = LocalDateTime.of(2023, 1, 1, 0, 0);
-	        LocalDateTime enddate = LocalDateTime.of(2023, 12, 31, 23, 59);
-	        String date = "2023-09-18";
+	        LocalDateTime startdate = DateUtils.parseDate("01-01-24 12:00 AM");
+	        LocalDateTime enddate = DateUtils.parseDate("31-12-24 12:00 AM");
+	        String status = "Open";
 
 	        List<Object[]> mockResult = Arrays.asList(
 	            new Object[]{1, 10L},
 	            new Object[]{2, 5L}
 	        );
 
-	        when(incidentRepo.findTotalNumberOfPriority(appid, startdate, enddate, date)).thenReturn(mockResult);
+	        when(incidentRepo.findTotalNumberOfPriority(appid, startdate, enddate, status)).thenReturn(mockResult);
 
 	        Map<String, String> expectedMap = new HashMap<>();
 	        expectedMap.put("APPID", appid);
 	        expectedMap.put("1", "10");
 	        expectedMap.put("2", "5");
 
-	        Map<String, String> result = incidentService.totalNumberofPriority(appid, startdate, enddate, date);
+	        Map<String, String> result = incidentService.totalNumberofPriority(appid, startdate, enddate, status);
 
 	        assertEquals(expectedMap, result);
-	        verify(incidentRepo, times(1)).findTotalNumberOfPriority(appid, startdate, enddate, date);
+	        verify(incidentRepo, times(1)).findTotalNumberOfPriority(appid, startdate, enddate, status);
 	    }
 	   
 	   @Test
@@ -141,7 +141,29 @@ class IncidentServiceTest {
 	        assertFalse(result.isPresent());
 	        verify(incidentRepo, times(1)).findByIncid(incid);
 	    }
+	   
+	   @Test
+	   void testSaveAll() {
+	        // Arrange
+		   Incident incident2=new Incident("INC46729",DateUtils.parseDate("9-12-24 12:00 AM"),"APP1234","Finacle",1,"Service Down","The services are not available","Open");
+		   Incident incident1=new Incident("INC46730",DateUtils.parseDate("9-12-24 12:00 AM"),"APP1234","Finacle",1,"Service Down","The services are not available","Open");
+	        List<Incident> incidents = Arrays.asList(incident1, incident2);
+
+	        // Act
+	        incidentService.saveAll(incidents);
+
+	        // Assert
+	        verify(incidentRepo, times(1)).save(incident1);
+	        verify(incidentRepo, times(1)).save(incident2);
+	    }
 	
+	   @Test
+	   void SaveIncident()
+	   {
+		   Incident incident=new Incident("INC46729",DateUtils.parseDate("9-12-24 12:00 AM"),"APP1234","Finacle",1,"Service Down","The services are not available","Open");
+		   incidentService.save(incident);
+		   verify(incidentRepo,times(1)).save(incident);
+	   }
 	
 	 
 	

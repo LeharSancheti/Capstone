@@ -9,7 +9,7 @@ import java.util.Optional;
 
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.example.capstone.entity.Incident;
@@ -23,7 +23,7 @@ public class IncidentService {
 	
 	private final IncidentRepo incidentRepo;
 	
-	 @Autowired
+	 
 	    public IncidentService(IncidentRepo incidentRepository) {
 	        this.incidentRepo = incidentRepository;
 	    }

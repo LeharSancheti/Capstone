@@ -19,7 +19,7 @@ import java.util.List;
 @Repository
 public interface IncidentRepo extends CrudRepository<Incident, String> {
 
-
+ 
 	
 Optional<Incident> findByIncid(String incid);
 

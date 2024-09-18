@@ -6,10 +6,11 @@ import java.time.format.DateTimeFormatterBuilder;
 
 public class DateUtils {
 	
-	 public DateUtils() {
 	
-	}
-
+   private DateUtils()
+   {
+	   
+   }
 	private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
 	            .parseCaseInsensitive()
 	            .appendOptional(DateTimeFormatter.ofPattern("d-M-yy h:mm a"))
